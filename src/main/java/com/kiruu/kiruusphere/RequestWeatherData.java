@@ -6,7 +6,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.swing.JOptionPane;
 
 /*
- * API URL Request (Sample Coordinates for Lingayen, Pangasinan
+ * API URL Request Sample Coordinates for Lingayen, Pangasinan
  * https://api.open-meteo.com/v1/forecast?latitude=16.02182&longitude=16.0218212023194&current=temperature_2m,relative_humidity_2m,is_day,rain,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTokyo
  * Possible Prediction UX Design:
  * https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSwCfW6HONsxPc4npvMoHyg9vhvBpaURkKWSVob4Dl5wcS76cPc9Umn9vuM-raPHqeN6c&usqp=CAU

@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("file.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/kiruu/kiruusphere/file.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
         stage.setResizable(false);

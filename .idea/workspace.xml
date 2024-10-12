@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aecac726-5204-40a1-9f0b-3c0a77ec2326" name="Changes" comment="Added pending project files">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/data/defaultreadwritemode.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kiruu/kiruusphere/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kiruu/kiruusphere/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kiruu/kiruusphere/Geocode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kiruu/kiruusphere/Geocode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kiruu/kiruusphere/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kiruu/kiruusphere/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kiruu/kiruusphere/RequestWeatherData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kiruu/kiruusphere/RequestWeatherData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/data/cache.dat" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/data/cache.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/file.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/file.fxml" afterDir="false" />
     </list>
@@ -48,6 +45,9 @@
         <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -131,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728721363201</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added pending project files">
+      <option name="closed" value="true" />
+      <created>1728725146428</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1728725146428</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

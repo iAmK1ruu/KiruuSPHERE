@@ -22,7 +22,7 @@
             <Image url="@icons/star.png" />
          </image>
       </ImageView>
-      <Label layoutX="30.0" layoutY="21.0" style="-fx-text-fill: white; -fx-font-weight: bold;" text="kiruu">
+      <Label layoutX="30.0" layoutY="21.0" onKeyPressed="#aboutMe" style="-fx-text-fill: white; -fx-font-weight: bold;" text="kiruu">
          <font>
             <Font name="League Spartan Regular" size="48.0" />
          </font>
@@ -126,7 +126,16 @@
             </ImageView>
          </graphic>
       </Button>
-      <Pane fx:id="pane_side" layoutX="384.0" layoutY="84.0" prefHeight="426.0" prefWidth="298.0" style="-fx-background-color: #6A9C89; -fx-background-radius: 30px;" stylesheets="@styles.css" />
+      <Pane fx:id="pane_side" layoutX="384.0" layoutY="84.0" prefHeight="426.0" prefWidth="298.0" style="-fx-background-color: #6A9C89; -fx-background-radius: 30px;" stylesheets="@styles.css">
+         <children>
+            <Pane fx:id="pane_fd" layoutX="21.0" layoutY="17.0" prefHeight="47.0" prefWidth="256.0" style="-fx-background-color: #16423C; -fx-background-radius: 30px;" stylesheets="@styles.css" />
+            <Pane fx:id="pane_fd1" layoutX="21.0" layoutY="75.0" prefHeight="47.0" prefWidth="256.0" style="-fx-background-color: #16423C; -fx-background-radius: 30px;" stylesheets="@styles.css" />
+            <Pane fx:id="pane_fd2" layoutX="21.0" layoutY="132.0" prefHeight="47.0" prefWidth="256.0" style="-fx-background-color: #16423C; -fx-background-radius: 30px;" stylesheets="@styles.css" />
+            <Pane fx:id="pane_fd3" layoutX="21.0" layoutY="190.0" prefHeight="47.0" prefWidth="256.0" style="-fx-background-color: #16423C; -fx-background-radius: 30px;" stylesheets="@styles.css" />
+            <Pane fx:id="pane_fd4" layoutX="21.0" layoutY="248.0" prefHeight="47.0" prefWidth="256.0" style="-fx-background-color: #16423C; -fx-background-radius: 30px;" stylesheets="@styles.css" />
+            <Pane fx:id="pane_fd5" layoutX="21.0" layoutY="304.0" prefHeight="47.0" prefWidth="256.0" style="-fx-background-color: #16423C; -fx-background-radius: 30px;" stylesheets="@styles.css" />
+            <Pane fx:id="pane_fd6" layoutX="21.0" layoutY="363.0" prefHeight="47.0" prefWidth="256.0" style="-fx-background-color: #16423C; -fx-background-radius: 30px;" stylesheets="@styles.css" />
+         </children></Pane>
       <Pane fx:id="pane_search" layoutX="30.0" layoutY="84.0" prefHeight="697.0" prefWidth="662.0" style="-fx-background-color: #16423C;" visible="false">
          <children>
             <Pane fx:id="p1" prefHeight="70.0" prefWidth="590.0" style="-fx-border-color: #6A9C89; -fx-border-radius: 13px;" visible="false">
@@ -466,5 +475,14 @@
             <Font name="Arial Bold" size="40.0" />
          </font>
       </Label>
+      <Button fx:id="btn_about" layoutX="571.0" layoutY="29.0" mnemonicParsing="false" onAction="#aboutMe" prefHeight="39.0" prefWidth="41.0" style="-fx-background-color: #6A9C89; -fx-background-radius: 50px;">
+         <graphic>
+            <ImageView fx:id="about" fitHeight="32.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/user.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

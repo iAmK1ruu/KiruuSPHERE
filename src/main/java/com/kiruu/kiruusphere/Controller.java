@@ -8,10 +8,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import jdk.jshell.spi.ExecutionControlProvider;
+
+import javax.swing.*;
 import java.time.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -45,6 +48,8 @@ public class Controller {
 
     @FXML
     ImageView fi1, fi2, fi3, fi4, fi5, fi6, fi7;
+    @FXML
+    ImageView img_weather;
 
     @FXML
     public void initialize() throws IOException {
@@ -239,7 +244,7 @@ public class Controller {
             for (int i = 0; i < 7; i++) {
                 //future_forecasts[i].setText(current_month + " " + dates.get(i).substring(dates.get(i).length() - 2));
             }
-
+            img_weather.setImage(new Image("com/kiruu/kiruusphere/1x/"+ returnWeatherIcon(isDay, weatherCode)));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -248,67 +253,97 @@ public class Controller {
     // Weather codes based at https://www.jodc.go.jp/data_format/weather-code.html
     public String returnWeatherIcon(int isDay, int weatherCode) {
         String icon = "";
+        String weatherCondition = ""; // New variable for the weather condition
 
-        // Determine the weather icon based on the weather code
+        // Determine the weather icon and condition based on the WMO weather code
         switch (weatherCode) {
-            case 0: // Clear
+            case 0: // Clear sky
                 icon = "s"; // Sun
+                weatherCondition = "Clear Sky";
                 break;
-            case 1: // Partly Cloudy
+            case 1: // Mainly clear
+            case 2: // Partly cloudy
+            case 3: // Overcast
                 icon = "cs"; // Cloud + Sun
+                weatherCondition = "Partly Cloudy/Overcast";
                 break;
-            case 2: // Cloudy
-                icon = "c"; // Clouds
-                break;
-            case 3: // Overcast or Light Rain
-                icon = "cr"; // Cloud + Rain
-                break;
-            case 4: // Thunderstorms or Heavy Rain
-                icon = "crl"; // Cloud + Rain + Lightning
-                break;
-            case 5: // Showers
-                icon = "crs"; // Cloud + Rain + Sun
-                break;
-            case 6: // Snow
-                icon = "crsn"; // Cloud + Rain + Snow
-                break;
-            case 7: // Mist or Fog
+            case 45: // Fog
+            case 48: // Depositing rime fog
                 icon = "cw"; // Cloud + Wind
+                weatherCondition = "Fog";
                 break;
-            case 8: // Windy
-                icon = (isDay == 1) ? "sw" : "m"; // Sun + Wind or Moon if nighttime
+            case 51: // Drizzle: Light
+            case 53: // Drizzle: Moderate
+            case 55: // Drizzle: Dense
+                icon = "cr"; // Cloud + Rain
+                weatherCondition = "Drizzle";
                 break;
-            case 9: // Thunderstorm (day)
-                icon = "cl"; // Clouds + Lightning
+            case 56: // Freezing drizzle: Light
+            case 57: // Freezing drizzle: Dense
+                icon = "cr"; // Cloud + Rain
+                weatherCondition = "Freezing Drizzle";
                 break;
-            case 10: // Moonlit
-                icon = "m"; // Moon
+            case 61: // Rain: Slight
+            case 63: // Rain: Moderate
+            case 65: // Rain: Heavy
+                icon = "cr"; // Cloud + Rain
+                weatherCondition = "Rain";
                 break;
-            case 11: // Moonlit with Wind
-                icon = "mw"; // Moon + Wind
+            case 66: // Freezing Rain: Light
+            case 67: // Freezing Rain: Heavy
+                icon = "cr"; // Cloud + Rain
+                weatherCondition = "Freezing Rain";
                 break;
-            case 12: // Partly Cloudy Night
-                icon = "cms"; // Cloud + Moon + Stars
+            case 71: // Snowfall: Slight
+            case 73: // Snowfall: Moderate
+            case 75: // Snowfall: Heavy
+                icon = "crsn"; // Cloud + Snow
+                weatherCondition = "Snowfall";
                 break;
-            case 13: // Snow at Night
+            case 77: // Snow grains
                 icon = "csn"; // Cloud + Snow
+                weatherCondition = "Snow Grains";
                 break;
-            case 14: // Snowy Weather
-                icon = "csl"; // Cloud + Snow + Lightning (if applicable)
+            case 80: // Rain showers: Slight
+            case 81: // Rain showers: Moderate
+            case 82: // Rain showers: Violent
+                icon = "crs"; // Cloud + Rain + Sun
+                weatherCondition = "Rain Showers";
                 break;
-            case 15: // Hail
-                icon = "cr"; // Assuming hail can be represented with rain clouds
+            case 85: // Snow showers: Slight
+            case 86: // Snow showers: Heavy
+                icon = "crsn"; // Cloud + Snow
+                weatherCondition = "Snow Showers";
                 break;
-            case 16: // Sleet
-                icon = "crs"; // Cloud + Rain + Snow
+            case 95: // Thunderstorm: Slight or moderate
+                icon = "crl"; // Cloud + Rain + Lightning
+                weatherCondition = "Thunderstorm";
+                break;
+            case 96: // Thunderstorm with slight hail
+            case 99: // Thunderstorm with heavy hail
+                icon = "crl"; // Cloud + Rain + Lightning
+                weatherCondition = "Thunderstorm with Hail";
                 break;
             default:
                 icon = "unknown"; // Default case if no icon matches
+                weatherCondition = "c";
                 break;
         }
 
+        System.out.println(weatherCondition);
+        // Update the label_conditions with the determined weather condition
+        label_conditions.setText(weatherCondition);
+
         // Append .png to the icon string to return the filename
+        System.out.println(icon);
         return icon + ".png";
+    }
+
+    public void aboutMe(ActionEvent e) {
+        JOptionPane.showMessageDialog(null, "About KiruuSPHERE\n" +
+                "KiruuSphere is a simple and intuitive weather application built using JavaFX.\n" +
+                "It leverages the Open-Meteo Weather API to provide real-time weather updates and conditions for any location around the globe." +
+                "\nBy: github.com/iAmK1ruu");
     }
 
 
