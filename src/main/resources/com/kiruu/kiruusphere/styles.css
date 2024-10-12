@@ -1,0 +1,16 @@
+
+.chart-plot-background {
+    -fx-background-color: #16423C;
+}
+
+/* Style the legend background */
+.chart-legend {
+    -fx-background-color: #16423C;
+    -fx-padding: 10; /* Optional: Adjust padding */
+}
+
+/* Style the legend text */
+.chart-legend-item {
+    -fx-text-fill: #FFFFFF; /* Set legend text color */
+    -fx-font-weight: bold;  /* Optional: Set text to bold */
+}
