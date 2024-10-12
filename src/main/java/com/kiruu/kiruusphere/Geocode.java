@@ -1,3 +1,4 @@
+
 package com.kiruu.kiruusphere;
 
 import java.io.BufferedReader;
@@ -55,4 +56,9 @@ public class Geocode {
             return new String[]{"NO_RESPONSE"};
         }
     }
+    /*
+     * USAGE:
+     * String[] coords = getLatLong(getJSONResponse(getPlace("Baguio City")), <index>);
+     * After the user selects the correct place, it will be passed as a 2nd parameter to getLatLong()
+     */
 }

@@ -5,6 +5,7 @@
 ## Sample Current Development Design
 - Search input to Geocoding and saving location is implemented.
 - Retrieving and caching weather data is implemented
+- Showing data to the interface is under implementation
 
 ![Weather App Main Pane](weathermain.png)
 ![Weather App Search Pane](weathersearch.png)
