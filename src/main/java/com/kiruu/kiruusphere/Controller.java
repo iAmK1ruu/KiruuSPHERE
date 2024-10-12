@@ -44,10 +44,11 @@ public class Controller {
             searchname9, ad19, ad29, ad39;
     @FXML
     Label label_nosearch, label_noloc, label_loading, label_temp, label_conditions, label_loc, label_wind, label_chance,
-            label_humidity, fd1, fd2, fd3, fd4, fd5, fd6, fd7;
+            label_humidity, fd1, fd2, fd3, fd4, fd5, fd6, fd,
+            ft, ft1, ft2, ft3, ft4, ft5, ft6;
 
     @FXML
-    ImageView fi1, fi2, fi3, fi4, fi5, fi6, fi7;
+    ImageView fi, fi1, fi2, fi3, fi4, fi5, fi6;
     @FXML
     ImageView img_weather;
 
@@ -84,10 +85,9 @@ public class Controller {
             ad38, ad39
     };
     // Create Panels with ImageViews and Labels for Future Forecasts
-    Pane[] panes = { p1, p2, p3, p4, p5, p6, p7, p8, p9, p10 };
-    Button[] btns = { b1, b2, b3, b4, b5, b6, b7, b8, b9, b10 };
-    Label[] future_forecasts = { fd1, fd2, fd3, fd4, fd5, fd6, fd7 };
-    ImageView future_forecast_icon[] = { fi1, fi2, fi3, fi4, fi5, fi6, fi7 };
+    Pane[] panes = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10};
+    Button[] btns = {b1, b2, b3, b4, b5, b6, b7, b8, b9, b10};
+
 
     public void searchAction(ActionEvent e) throws Exception {
         String fetched_text = field_search.getText();
@@ -126,8 +126,8 @@ public class Controller {
                 ad34, ad35, ad36, ad37,
                 ad38, ad39
         };
-        Pane[] panes = { p1, p2, p3, p4, p5, p6, p7, p8, p9, p10 };
-        Button[] btns = { b1, b2, b3, b4, b5, b6, b7, b8, b9, b10 };
+        Pane[] panes = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10};
+        Button[] btns = {b1, b2, b3, b4, b5, b6, b7, b8, b9, b10};
         for (int i = 0; i < 10; i++) {
             panes[i].setVisible(false);
             btns[i].setVisible(false);
@@ -201,6 +201,7 @@ public class Controller {
     }
 
     public void getWeatherData() {
+        String[] min_temp = new String[7], max_temp = new String[7], weather_codes = new String[7];
         pane_search.setVisible(false);
         pane_main.setVisible(true);
         pane_side.setVisible(true);
@@ -230,21 +231,36 @@ public class Controller {
                         case 7: // Wind Speed
                             label_wind.setText(currentLine);
                             break;
+                        case 20:
+                            weather_codes = currentLine.substring(15, currentLine.length() - 1).split(",");
+                        case 21:
+                            max_temp = currentLine.substring(21, currentLine.length() - 1).split(",");
+                            break;
+                        case 22:
+                            min_temp = currentLine.substring(21, currentLine.length() - 1).split(",");
                         default: // Daily dates
-                            if (i >= 8 && i < 20) {
+                            if (i >= 13 && i < 20) {
                                 dates.add(currentLine);
                             }
                             break;
                     }
                 }
             }
-            Label[] future_forecasts = { fd1, fd2, fd3, fd4, fd5, fd6, fd7 };
-            // RECHECK LATER
-            //Month current_month = Month.of(Integer.parseInt(dates.get(0).substring(6, 2)));
+            Label[] future_forecasts = {fd, fd1, fd2, fd3, fd4, fd5, fd6};
+            Label[] future_temp = {ft, ft1, ft2, ft3, ft4, ft5, ft6};
+            ImageView future_icons[] = {fi, fi1, fi2, fi3, fi4, fi5, fi6};
+            Month current_month = Month.of(Integer.parseInt(dates.get(0).substring(5, 7)));
             for (int i = 0; i < 7; i++) {
-                //future_forecasts[i].setText(current_month + " " + dates.get(i).substring(dates.get(i).length() - 2));
+                future_temp[i].setText(min_temp[i] + "-" + max_temp[i] + "C");
+                future_icons[i].setImage(new Image("com/kiruu/kiruusphere/1x/" + returnWeatherIcon(1, Integer.parseInt(weather_codes[i]))));
+                if (i == 6) {
+                    future_forecasts[i].setText(current_month + " " + dates.get(i).substring(8, 10));
+                } else {
+                    future_forecasts[i].setText(current_month + " " + dates.get(i).substring(dates.get(i).length() - 2));
+                }
+
             }
-            img_weather.setImage(new Image("com/kiruu/kiruusphere/1x/"+ returnWeatherIcon(isDay, weatherCode)));
+            img_weather.setImage(new Image("com/kiruu/kiruusphere/1x/" + returnWeatherIcon(isDay, weatherCode)));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -329,13 +345,7 @@ public class Controller {
                 weatherCondition = "c";
                 break;
         }
-
-        System.out.println(weatherCondition);
-        // Update the label_conditions with the determined weather condition
         label_conditions.setText(weatherCondition);
-
-        // Append .png to the icon string to return the filename
-        System.out.println(icon);
         return icon + ".png";
     }
 
