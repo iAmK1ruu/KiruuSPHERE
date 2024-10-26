@@ -5,9 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aecac726-5204-40a1-9f0b-3c0a77ec2326" name="Changes" comment="Added pending project files">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/kiruu/kiruusphere/NewsData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/kiruu/kiruusphere/WebViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/apikey/key" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/webview.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/kiruu/kiruusphere/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kiruu/kiruusphere/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/data/cache.dat" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/data/cache.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/data/pinned.dat" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/data/pinned.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/file.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/file.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,6 +25,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -59,18 +67,22 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Geocode.executor": "Run",
-    "Application.Main.executor": "Debug",
+    "Application.Main.executor": "Run",
+    "Application.NewsData.executor": "Run",
     "Application.RequestWeatherData.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Programming/Desktop/vscode-ws",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.NewsData">
     <configuration name="Geocode" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.kiruu.kiruusphere.Geocode" />
       <module name="KiruuSPHERE" />
@@ -97,6 +109,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="NewsData" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.kiruu.kiruusphere.NewsData" />
+      <module name="KiruuSPHERE" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.kiruu.kiruusphere.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RequestWeatherData" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.kiruu.kiruusphere.RequestWeatherData" />
       <module name="KiruuSPHERE" />
@@ -112,6 +137,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.NewsData" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Geocode" />
         <item itemvalue="Application.RequestWeatherData" />
@@ -159,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728728863023</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added pending project files">
+      <option name="closed" value="true" />
+      <created>1728777126730</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728777126730</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
