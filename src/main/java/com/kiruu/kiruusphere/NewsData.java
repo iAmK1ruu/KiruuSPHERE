@@ -72,4 +72,9 @@ public class NewsData {
         return response.substring(response.indexOf("\"articles\": [") + 46, response.length() - 2).split("\\},\\{");
     }
 
+
+    public static void main(String[] args) throws IOException {
+        System.out.println(newsArticles(getJSONResponse())[0]);
+
+    }
 }

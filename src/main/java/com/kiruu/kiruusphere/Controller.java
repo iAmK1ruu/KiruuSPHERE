@@ -1,18 +1,18 @@
 package com.kiruu.kiruusphere;
 
-import com.sun.net.httpserver.Request;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
-import jdk.jshell.spi.ExecutionControlProvider;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+
 import javax.swing.*;
 import java.time.*;
 import java.io.*;
@@ -21,13 +21,15 @@ import java.util.ArrayList;
 //  BAD CODE-WRITING AHEAD!!!!!!!!!!!!!!!!!!!
 public class Controller {
     public String fetched_search;
+    public int articleLimit = NewsData.newsArticles(NewsData.getJSONResponse()).length - 1;
+    public int articleCount = 0;
     @FXML
-    Button btn_search;
+    Button btn_search, btn_closearticle, btn_about;
     @FXML
     Pane pane_main, pane_side, pane_search,
-            p1, p2, p3, p4, p5, p6, p7, p8, p9, p10;
+            p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, pane_bottom;
     @FXML
-    Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b10;
+    Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, redirect_btn;
     @FXML
     TextField field_search;
     @FXML
@@ -44,12 +46,16 @@ public class Controller {
     @FXML
     Label label_nosearch, label_noloc, label_loading, label_temp, label_conditions, label_loc, label_wind, label_chance,
             label_humidity, fd1, fd2, fd3, fd4, fd5, fd6, fd,
-            ft, ft1, ft2, ft3, ft4, ft5, ft6;
-
+            ft, ft1, ft2, ft3, ft4, ft5, ft6, news_label, news_provider_label, news_desc;
+    @FXML
+    WebView webview;
     @FXML
     ImageView fi, fi1, fi2, fi3, fi4, fi5, fi6;
     @FXML
     ImageView img_weather;
+
+    public Controller() throws IOException {
+    }
 
     @FXML
     public void initialize() throws IOException {
@@ -60,6 +66,9 @@ public class Controller {
             pane_side.setVisible(false);
         }
         getWeatherData();
+        showNewsArticle();
+
+
     }
 
     Label[] searchnames = {
@@ -86,7 +95,6 @@ public class Controller {
     // Create Panels with ImageViews and Labels for Future Forecasts
     Pane[] panes = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10};
     Button[] btns = {b1, b2, b3, b4, b5, b6, b7, b8, b9, b10};
-
 
     public void searchAction(ActionEvent e) throws Exception {
         String fetched_text = field_search.getText();
@@ -353,6 +361,72 @@ public class Controller {
                 "KiruuSphere is a simple and intuitive weather application built using JavaFX.\n" +
                 "It leverages the Open-Meteo Weather API to provide real-time weather updates and conditions for any location around the globe." +
                 "\nBy: github.com/iAmK1ruu");
+    }
+
+    public void showNewsArticle() throws IOException {
+        String[] articles = NewsData.newsArticles(NewsData.getJSONResponse());
+        String articleJson = articles[articleCount];
+        String name = articleJson.substring(
+                articleJson.indexOf("\"name\":\"") + 8,
+                articleJson.indexOf("\"},\"author\"")
+        );
+        if (name.equals("[Removed]")) {
+            articleLimit--;
+            System.out.println("CONDITION PASSED");
+        } else {
+            String title = articleJson.substring(
+                    articleJson.indexOf("\"title\":\"") + 9,
+                    articleJson.indexOf("\",\"description\"")
+            );
+            news_label.setText(title);
+            news_provider_label.setText(name);
+            String content = articleJson.substring(
+                    articleJson.indexOf("\"content\":\"") + 11,
+                    articleJson.indexOf("… [") + 2
+            ).replace("\\r", ".").replace("\\n", " ").replace("\"", " ");
+            news_desc.setText(content);
+        }
+    }
+
+    public void backBtn(ActionEvent e) throws IOException {
+        if (articleCount > 0) {
+            articleCount--;
+        }
+        showNewsArticle();
+    }
+
+    public void nextBtn(ActionEvent e) throws IOException {
+        if (articleCount == articleLimit) {
+            showNewsArticle();
+        } else {
+            articleCount++;
+            showNewsArticle();
+        }
+    }
+
+    public void redirect() throws IOException {
+        pane_main.setVisible(false);
+        pane_side.setVisible(false);
+        pane_bottom.setVisible(false);
+        btn_closearticle.setVisible(true);
+        webview.setVisible(true);
+        field_search.setVisible(false);
+        btn_search.setVisible(false);
+        btn_about.setVisible(false);
+        String[] articles = NewsData.newsArticles(NewsData.getJSONResponse());
+        WebEngine webengine_main = webview.getEngine();
+        webengine_main.load(articles[articleCount].substring(articles[articleCount].indexOf("\"url\":\"") + 7, articles[articleCount].indexOf("\",\"urlToImage\"")));
+    }
+
+    public void closeArticle(ActionEvent e) {
+        pane_main.setVisible(true);
+        pane_side.setVisible(true);
+        pane_bottom.setVisible(true);
+        btn_closearticle.setVisible(false);
+        webview.setVisible(false);
+        field_search.setVisible(true);
+        btn_search.setVisible(true);
+        btn_about.setVisible(true);
     }
 
 
