@@ -4,6 +4,7 @@
 
 ## Current Development UI
 - Code refactoring in progress to optimize performance especially on WebView.
+- A bug that prevents the app from bei opened due to being unable to retrieve news data (which persists when there is no Internet connection), is to be resolved
 
 
 ![Weather App Main Pane](weathermain.png)
