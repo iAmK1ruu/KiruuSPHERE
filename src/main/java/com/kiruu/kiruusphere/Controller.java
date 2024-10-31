@@ -109,6 +109,7 @@ public class Controller {
         pane_side.setVisible(false);
         pane_search.setVisible(true);
         pane_search.setDisable(false);
+        pane_bottom.setVisible(false);
     }
 
     public void getIndividualSearchResponse(String fetched_text) {
@@ -212,6 +213,7 @@ public class Controller {
         pane_search.setVisible(false);
         pane_main.setVisible(true);
         pane_side.setVisible(true);
+        pane_bottom.setVisible(true);
         RequestWeatherData.splitResponse();
         label_loc.setText(RequestWeatherData.readSavedLocation()[2]);
         try (BufferedReader reader = new BufferedReader(
