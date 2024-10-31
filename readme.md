@@ -4,7 +4,8 @@
 
 ## Sample Current Development Design
 
-* Bottom pane design is under implementation
+- News API is utilized to provide latest weather updates in the locale
+- Showing the articles in the bottom pane is under implementation
 ![Weather App Main Pane](weathermain.png)
 ![Weather App Search Pane](weathersearch.png)
 
