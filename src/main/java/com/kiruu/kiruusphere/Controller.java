@@ -12,7 +12,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 import java.time.*;
 import java.io.*;
@@ -208,6 +210,8 @@ public class Controller {
         }
     }
 
+
+
     public void getWeatherData() {
         String[] min_temp = new String[7], max_temp = new String[7], weather_codes = new String[7];
         pane_search.setVisible(false);
@@ -216,11 +220,13 @@ public class Controller {
         pane_bottom.setVisible(true);
         RequestWeatherData.splitResponse();
         label_loc.setText(RequestWeatherData.readSavedLocation()[2]);
+
         try (BufferedReader reader = new BufferedReader(
                 new FileReader("src/main/resources/com/kiruu/kiruusphere/data/cache.dat"))) {
             String currentLine;
             ArrayList<String> dates = new ArrayList<>();
             int isDay = -1, weatherCode = -1;
+
             for (int i = 0; i < 24; i++) {
                 currentLine = reader.readLine();
                 if (currentLine != null) {
@@ -242,11 +248,13 @@ public class Controller {
                             break;
                         case 20:
                             weather_codes = currentLine.substring(15, currentLine.length() - 1).split(",");
+                            break;
                         case 21:
                             max_temp = currentLine.substring(21, currentLine.length() - 1).split(",");
                             break;
                         case 22:
                             min_temp = currentLine.substring(21, currentLine.length() - 1).split(",");
+                            break;
                         default: // Daily dates
                             if (i >= 13 && i < 20) {
                                 dates.add(currentLine);
@@ -255,25 +263,36 @@ public class Controller {
                     }
                 }
             }
+
             Label[] future_forecasts = {fd, fd1, fd2, fd3, fd4, fd5, fd6};
             Label[] future_temp = {ft, ft1, ft2, ft3, ft4, ft5, ft6};
-            ImageView future_icons[] = {fi, fi1, fi2, fi3, fi4, fi5, fi6};
-            Month current_month = Month.of(Integer.parseInt(dates.get(0).substring(5, 7)));
+            ImageView[] future_icons = {fi, fi1, fi2, fi3, fi4, fi5, fi6};
+
+            // Parse the initial date from the data
+            LocalDate initialDate = LocalDate.parse(dates.get(0), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            Month currentMonth = initialDate.getMonth();
+
             for (int i = 0; i < 7; i++) {
-                future_temp[i].setText(min_temp[i] + "-" + max_temp[i] + "C");
-                future_icons[i].setImage(new Image("com/kiruu/kiruusphere/1x/" + returnWeatherIcon(1, Integer.parseInt(weather_codes[i]))));
-                if (i == 6) {
-                    future_forecasts[i].setText(current_month + " " + dates.get(i).substring(8, 10));
-                } else {
-                    future_forecasts[i].setText(current_month + " " + dates.get(i).substring(dates.get(i).length() - 2));
+                LocalDate forecastDate = initialDate.plusDays(i);
+
+                // Check for month transition
+                if (forecastDate.getMonth() != currentMonth) {
+                    currentMonth = forecastDate.getMonth();
                 }
 
+                // Set the forecast data
+                future_temp[i].setText(min_temp[i] + "-" + max_temp[i] + "C");
+                future_icons[i].setImage(new Image("com/kiruu/kiruusphere/1x/" + returnWeatherIcon(1, Integer.parseInt(weather_codes[i]))));
+                future_forecasts[i].setText(forecastDate.getMonth() + " " + forecastDate.getDayOfMonth());
             }
+
             img_weather.setImage(new Image("com/kiruu/kiruusphere/1x/" + returnWeatherIcon(isDay, weatherCode)));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
 
     // Weather codes based at https://www.jodc.go.jp/data_format/weather-code.html
     public String returnWeatherIcon(int isDay, int weatherCode) {

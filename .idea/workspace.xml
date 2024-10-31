@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="aecac726-5204-40a1-9f0b-3c0a77ec2326" name="Changes" comment="Added pending project files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/kiruu/kiruusphere/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kiruu/kiruusphere/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/apikey/key" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/apikey/key" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/data/cache.dat" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/data/cache.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/data/pinned.dat" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/data/pinned.dat" afterDir="false" />
@@ -247,7 +248,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730362598621</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Added pending project files">
+      <option name="closed" value="true" />
+      <created>1730362709745</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1730362709745</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
