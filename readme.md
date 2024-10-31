@@ -3,9 +3,9 @@
 ### KiruuSphere is a simple and intuitive weather application built using JavaFX. It leverages the Open-Meteo Weather API to provide real-time weather updates and conditions for any location around the globe. With a user-friendly interface, it aims to help users stay updated with current weather and forecast information.
 
 ## Sample Current Development Design
-- Search input to Geocoding and saving location is implemented.
-- Retrieving and caching weather data is implemented
-- Showing data to the interface is under implementation
+- News API is utilized to provide latest weather updates in the locale
+- Showing the articles in the bottom pane is under implementation
+
 
 ![Weather App Main Pane](weathermain.png)
 ![Weather App Search Pane](weathersearch.png)
