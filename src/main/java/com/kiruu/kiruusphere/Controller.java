@@ -61,51 +61,50 @@ public class Controller {
 
     @FXML
     public void initialize() throws IOException {
-        String savedLocation = RequestWeatherData.readSavedLocation()[2];
-        if (savedLocation.equals("NO_SAVED_LOC")) {
-            label_noloc.setVisible(true);
-            pane_main.setVisible(false);
-            pane_side.setVisible(false);
+        if (isNoSavedLocation()) {
+            handleNoSavedLocation();
+        } else {
+            getWeatherData();
+            showNewsArticle();
         }
-        getWeatherData();
-        showNewsArticle();
-
-
     }
 
-    Label[] searchnames = {
-            searchname, searchname1, searchname2, searchname3,
-            searchname4, searchname5, searchname6, searchname7,
-            searchname8, searchname9
-    };
+    private boolean isNoSavedLocation() throws IOException {
+        String savedLocation = RequestWeatherData.readSavedLocation()[2];
+        return "NO_SAVED_LOC".equals(savedLocation);
+    }
 
-    Label[] ad1arr = {
-            ad1, ad11, ad12, ad13,
-            ad14, ad15, ad16, ad17,
-            ad18, ad19
-    };
-    Label[] ad2arr = {
-            ad2, ad21, ad22, ad23,
-            ad24, ad25, ad26, ad27,
-            ad28, ad29
-    };
-    Label[] ad3arr = {
-            ad3, ad31, ad32, ad33,
-            ad34, ad35, ad36, ad37,
-            ad38, ad39
-    };
-    // Create Panels with ImageViews and Labels for Future Forecasts
-    Pane[] panes = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10};
-    Button[] btns = {b1, b2, b3, b4, b5, b6, b7, b8, b9, b10};
+    private void handleNoSavedLocation() {
+        label_noloc.setVisible(true);
+        pane_main.setVisible(false);
+        pane_side.setVisible(false);
+    }
+
+
 
     public void searchAction(ActionEvent e) throws Exception {
-        String fetched_text = field_search.getText();
-        if (fetched_text.isEmpty() || fetched_text.isBlank()) {
-            // INSERT ERROR DIALOG
+        String fetchedText = field_search.getText();
+
+        if (isSearchFieldEmpty(fetchedText)) {
+            showErrorDialog("Search field cannot be empty.");
             return;
         }
 
-        getIndividualSearchResponse(fetched_text);
+        handleSearchAction(fetchedText);
+    }
+
+    private boolean isSearchFieldEmpty(String text) {
+        return text == null || text.isBlank();
+    }
+
+    private void showErrorDialog(String message) {
+        // Replace with actual JavaFX dialog code
+        System.out.println("Error: " + message); // Placeholder for error dialog
+    }
+
+    private void handleSearchAction(String fetchedText) throws Exception {
+        getIndividualSearchResponse(fetchedText);
+
         label_noloc.setVisible(false);
         pane_main.setVisible(false);
         pane_side.setVisible(false);
@@ -114,101 +113,107 @@ public class Controller {
         pane_bottom.setVisible(false);
     }
 
-    public void getIndividualSearchResponse(String fetched_text) {
-        Label[] searchnames = {
-                searchname, searchname1, searchname2, searchname3,
-                searchname4, searchname5, searchname6, searchname7,
-                searchname8, searchname9
-        };
 
-        Label[] ad1arr = {
-                ad1, ad11, ad12, ad13,
-                ad14, ad15, ad16, ad17,
-                ad18, ad19
-        };
-        Label[] ad2arr = {
-                ad2, ad21, ad22, ad23,
-                ad24, ad25, ad26, ad27,
-                ad28, ad29
-        };
-        Label[] ad3arr = {
-                ad3, ad31, ad32, ad33,
-                ad34, ad35, ad36, ad37,
-                ad38, ad39
-        };
-        Pane[] panes = {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10};
-        Button[] btns = {b1, b2, b3, b4, b5, b6, b7, b8, b9, b10};
-        for (int i = 0; i < 10; i++) {
-            panes[i].setVisible(false);
-            btns[i].setVisible(false);
-            ad1arr[i].setText("NA");
-            ad2arr[i].setText("NA");
-            ad3arr[i].setText("NA");
-        }
-        String[] searches = Geocode.getJSONResponse(Geocode.getPlace(fetched_text));
+    public void getIndividualSearchResponse(String fetchedText) {
+        resetSearchUI();
+
+        String[] searches = Geocode.getJSONResponse(Geocode.getPlace(fetchedText));
         label_noloc.setVisible(false);
         label_nosearch.setVisible(false);
         label_loading.setVisible(false);
+
         if (searches[0].contains("name")) {
             for (int i = 0; i < searches.length; i++) {
-                String[] splits = searches[i].split(",");
-                panes[i].setVisible(true);
-                btns[i].setVisible(true);
-                btns[i].setDisable(false);
-                for (int j = 0; j < splits.length; j++) {
-                    if (splits[j].contains("name")) {
-                        searchnames[i].setText(splits[j].substring(8, splits[j].length() - 1));
-                    }
-                    if (splits[j].contains("admin1")) {
-                        if (splits[j].contains("}")) {
-                            ad1arr[i].setText(splits[j].substring(10, splits[j].length() - 3));
-                        } else {
-                            ad1arr[i].setText(splits[j].substring(10, splits[j].length() - 1));
-                        }
-                    }
-                    if (splits[j].contains("admin2")) {
-                        if (splits[j].contains("}")) {
-                            ad2arr[i].setText(splits[j].substring(10, splits[j].length() - 3));
-                        } else {
-                            ad2arr[i].setText(splits[j].substring(10, splits[j].length() - 1));
-                        }
-                    }
-                    if (splits[j].contains("admin3")) {
-                        if (splits[j].contains("}")) {
-                            ad3arr[i].setText(splits[j].substring(10, splits[j].length() - 3));
-                        } else {
-                            ad3arr[i].setText(splits[j].substring(10, splits[j].length() - 1));
-                        }
-                    }
-                }
+                updatePaneWithSearchData(i, searches[i]);
             }
         } else {
             label_nosearch.setVisible(true);
         }
     }
 
-    public void selectLocation(ActionEvent e) {
-        Button source = (Button) e.getSource();
-        int start = source.toString().indexOf("id=") + 4, end = source.toString().indexOf(", "),
-                index = Integer.parseInt(source.toString().substring(start, end)) - 1;
-        String[] response = Geocode.getJSONResponse(Geocode.getPlace(field_search.getText())),
-                coords = Geocode.getLatLong(response, index), split = response[index].split(",");
-        fetched_search = split[1].substring(8, split[1].length() - 1);
+    private void resetSearchUI() {
+        Label[] searchNames = { searchname, searchname1, searchname2, searchname3, searchname4, searchname5, searchname6, searchname7, searchname8, searchname9 };
+        Label[] ad1Arr = { ad1, ad11, ad12, ad13, ad14, ad15, ad16, ad17, ad18, ad19 };
+        Label[] ad2Arr = { ad2, ad21, ad22, ad23, ad24, ad25, ad26, ad27, ad28, ad29 };
+        Label[] ad3Arr = { ad3, ad31, ad32, ad33, ad34, ad35, ad36, ad37, ad38, ad39 };
+        Pane[] panes = { p1, p2, p3, p4, p5, p6, p7, p8, p9, p10 };
+        Button[] buttons = { b1, b2, b3, b4, b5, b6, b7, b8, b9, b10 };
 
-        try {
-            BufferedWriter coordswriter = new BufferedWriter(
-                    new FileWriter("src/main/resources/com/kiruu/kiruusphere/data/pinned.dat"));
-            coordswriter.write(coords[0]);
-            coordswriter.newLine();
-            coordswriter.write(coords[1]);
-            coordswriter.newLine();
-            coordswriter.write(fetched_search);
-            coordswriter.close();
-            getWeatherData();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+        for (int i = 0; i < panes.length; i++) {
+            panes[i].setVisible(false);
+            buttons[i].setVisible(false);
+            ad1Arr[i].setText("NA");
+            ad2Arr[i].setText("NA");
+            ad3Arr[i].setText("NA");
         }
     }
+
+    private void updatePaneWithSearchData(int index, String searchData) {
+        Pane[] panes = { p1, p2, p3, p4, p5, p6, p7, p8, p9, p10 };
+        Button[] buttons = { b1, b2, b3, b4, b5, b6, b7, b8, b9, b10 };
+        Label[] searchNames = { searchname, searchname1, searchname2, searchname3, searchname4, searchname5, searchname6, searchname7, searchname8, searchname9 };
+        Label[] ad1Arr = { ad1, ad11, ad12, ad13, ad14, ad15, ad16, ad17, ad18, ad19 };
+        Label[] ad2Arr = { ad2, ad21, ad22, ad23, ad24, ad25, ad26, ad27, ad28, ad29 };
+        Label[] ad3Arr = { ad3, ad31, ad32, ad33, ad34, ad35, ad36, ad37, ad38, ad39 };
+
+        panes[index].setVisible(true);
+        buttons[index].setVisible(true);
+        buttons[index].setDisable(false);
+
+        String[] splits = searchData.split(",");
+        for (String split : splits) {
+            if (split.contains("name")) {
+                searchNames[index].setText(getFormattedText(split, 8));
+            } else if (split.contains("admin1")) {
+                ad1Arr[index].setText(getFormattedText(split, 10));
+            } else if (split.contains("admin2")) {
+                ad2Arr[index].setText(getFormattedText(split, 10));
+            } else if (split.contains("admin3")) {
+                ad3Arr[index].setText(getFormattedText(split, 10));
+            }
+        }
+    }
+
+    private String getFormattedText(String data, int startIndex) {
+        int endIndex = data.endsWith("}") ? data.length() - 3 : data.length() - 1;
+        return data.substring(startIndex, endIndex);
+    }
+
+
+    public void selectLocation(ActionEvent e) {
+        int index = extractIndexFromButton((Button) e.getSource());
+        String[] response = Geocode.getJSONResponse(Geocode.getPlace(field_search.getText()));
+        String[] coords = Geocode.getLatLong(response, index);
+        String fetchedSearch = extractFetchedSearch(response, index);
+
+        writePinnedData(coords, fetchedSearch);
+        getWeatherData();
+    }
+
+    private int extractIndexFromButton(Button button) {
+        String buttonText = button.toString();
+        int start = buttonText.indexOf("id=") + 4;
+        int end = buttonText.indexOf(", ");
+        return Integer.parseInt(buttonText.substring(start, end)) - 1;
+    }
+
+    private String extractFetchedSearch(String[] response, int index) {
+        String[] split = response[index].split(",");
+        return split[1].substring(8, split[1].length() - 1);
+    }
+
+    private void writePinnedData(String[] coords, String fetchedSearch) {
+        try (BufferedWriter coordsWriter = new BufferedWriter(new FileWriter("src/main/resources/com/kiruu/kiruusphere/data/pinned.dat"))) {
+            coordsWriter.write(coords[0]);
+            coordsWriter.newLine();
+            coordsWriter.write(coords[1]);
+            coordsWriter.newLine();
+            coordsWriter.write(fetchedSearch);
+        } catch (IOException ex) {
+            throw new RuntimeException("Failed to write pinned data", ex);
+        }
+    }
+
 
 
 
@@ -294,87 +299,69 @@ public class Controller {
 
 
 
-    // Weather codes based at https://www.jodc.go.jp/data_format/weather-code.html
     public String returnWeatherIcon(int isDay, int weatherCode) {
-        String icon = "";
-        String weatherCondition = ""; // New variable for the weather condition
+        WeatherInfo weatherInfo = getWeatherInfo(weatherCode);
 
-        // Determine the weather icon and condition based on the WMO weather code
+        label_conditions.setText(weatherInfo.condition);
+        return weatherInfo.icon + ".png";
+    }
+
+    private WeatherInfo getWeatherInfo(int weatherCode) {
         switch (weatherCode) {
-            case 0: // Clear sky
-                icon = "s"; // Sun
-                weatherCondition = "Clear Sky";
-                break;
-            case 1: // Mainly clear
-            case 2: // Partly cloudy
-            case 3: // Overcast
-                icon = "cs"; // Cloud + Sun
-                weatherCondition = "Partly Cloudy/Overcast";
-                break;
-            case 45: // Fog
-            case 48: // Depositing rime fog
-                icon = "cw"; // Cloud + Wind
-                weatherCondition = "Fog";
-                break;
-            case 51: // Drizzle: Light
-            case 53: // Drizzle: Moderate
-            case 55: // Drizzle: Dense
-                icon = "cr"; // Cloud + Rain
-                weatherCondition = "Drizzle";
-                break;
-            case 56: // Freezing drizzle: Light
-            case 57: // Freezing drizzle: Dense
-                icon = "cr"; // Cloud + Rain
-                weatherCondition = "Freezing Drizzle";
-                break;
-            case 61: // Rain: Slight
-            case 63: // Rain: Moderate
-            case 65: // Rain: Heavy
-                icon = "cr"; // Cloud + Rain
-                weatherCondition = "Rain";
-                break;
-            case 66: // Freezing Rain: Light
-            case 67: // Freezing Rain: Heavy
-                icon = "cr"; // Cloud + Rain
-                weatherCondition = "Freezing Rain";
-                break;
-            case 71: // Snowfall: Slight
-            case 73: // Snowfall: Moderate
-            case 75: // Snowfall: Heavy
-                icon = "crsn"; // Cloud + Snow
-                weatherCondition = "Snowfall";
-                break;
-            case 77: // Snow grains
-                icon = "csn"; // Cloud + Snow
-                weatherCondition = "Snow Grains";
-                break;
-            case 80: // Rain showers: Slight
-            case 81: // Rain showers: Moderate
-            case 82: // Rain showers: Violent
-                icon = "crs"; // Cloud + Rain + Sun
-                weatherCondition = "Rain Showers";
-                break;
-            case 85: // Snow showers: Slight
-            case 86: // Snow showers: Heavy
-                icon = "crsn"; // Cloud + Snow
-                weatherCondition = "Snow Showers";
-                break;
-            case 95: // Thunderstorm: Slight or moderate
-                icon = "crl"; // Cloud + Rain + Lightning
-                weatherCondition = "Thunderstorm";
-                break;
-            case 96: // Thunderstorm with slight hail
-            case 99: // Thunderstorm with heavy hail
-                icon = "crl"; // Cloud + Rain + Lightning
-                weatherCondition = "Thunderstorm with Hail";
-                break;
+            case 0:
+                return new WeatherInfo("s", "Clear Sky");
+            case 1:
+            case 2:
+            case 3:
+                return new WeatherInfo("cs", "Partly Cloudy/Overcast");
+            case 45:
+            case 48:
+                return new WeatherInfo("cw", "Fog");
+            case 51:
+            case 53:
+            case 55:
+                return new WeatherInfo("cr", "Drizzle");
+            case 56:
+            case 57:
+                return new WeatherInfo("cr", "Freezing Drizzle");
+            case 61:
+            case 63:
+            case 65:
+                return new WeatherInfo("cr", "Rain");
+            case 66:
+            case 67:
+                return new WeatherInfo("cr", "Freezing Rain");
+            case 71:
+            case 73:
+            case 75:
+                return new WeatherInfo("crsn", "Snowfall");
+            case 77:
+                return new WeatherInfo("csn", "Snow Grains");
+            case 80:
+            case 81:
+            case 82:
+                return new WeatherInfo("crs", "Rain Showers");
+            case 85:
+            case 86:
+                return new WeatherInfo("crsn", "Snow Showers");
+            case 95:
+                return new WeatherInfo("crl", "Thunderstorm");
+            case 96:
+            case 99:
+                return new WeatherInfo("crl", "Thunderstorm with Hail");
             default:
-                icon = "unknown"; // Default case if no icon matches
-                weatherCondition = "c";
-                break;
+                return new WeatherInfo("unknown", "Unknown Weather");
         }
-        label_conditions.setText(weatherCondition);
-        return icon + ".png";
+    }
+
+    private static class WeatherInfo {
+        String icon;
+        String condition;
+
+        WeatherInfo(String icon, String condition) {
+            this.icon = icon;
+            this.condition = condition;
+        }
     }
 
     public void aboutMe(ActionEvent e) {
