@@ -19,8 +19,6 @@ import javax.swing.*;
 import java.time.*;
 import java.io.*;
 import java.util.ArrayList;
-
-//  BAD CODE-WRITING AHEAD!!!!!!!!!!!!!!!!!!!
 public class Controller {
     public String fetched_search;
     public int articleLimit = NewsData.newsArticles(NewsData.getJSONResponse()).length - 1;
