@@ -237,7 +237,7 @@ public class Controller {
                 if (currentLine != null) {
                     switch (i) {
                         case 2: // Temperature
-                            label_temp.setText(currentLine);
+                            label_temp.setText(currentLine + "°C");
                             break;
                         case 3:
                             label_humidity.setText(currentLine);
