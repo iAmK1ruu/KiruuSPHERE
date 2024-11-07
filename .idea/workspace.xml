@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aecac726-5204-40a1-9f0b-3c0a77ec2326" name="Changes" comment="Added pending project files">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/kiruu/kiruusphere/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/kiruu/kiruusphere/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/apikey/key" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/apikey/key" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/data/cache.dat" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/data/cache.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/data/pinned.dat" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/kiruu/kiruusphere/data/pinned.dat" afterDir="false" />
@@ -38,12 +36,33 @@
     &quot;assignee&quot;: &quot;iAmK1ruu&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/iAmK1ruu/KiruuSPHERE.git&quot;,
-    &quot;accountId&quot;: &quot;83895cda-6a77-4671-9e5e-2eb86375f532&quot;
+  <component name="GitHubPullRequestState"><![CDATA[{
+  "prStates": [
+    {
+      "id": {
+        "id": "PR_kwDOM_KNqM6AsCvc",
+        "number": 4
+      },
+      "lastSeen": 1730523825780
+    }
+  ]
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/iAmK1ruu/KiruuSPHERE.git",
+    "accountId": "83895cda-6a77-4671-9e5e-2eb86375f532"
+  },
+  "recentNewPullRequestHead": {
+    "server": {
+      "useHttp": false,
+      "host": "github.com",
+      "port": null,
+      "suffix": null
+    },
+    "owner": "iAmK1ruu",
+    "repository": "KiruuSPHERE"
   }
-}</component>
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -264,7 +283,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730363991160</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Added pending project files">
+      <option name="closed" value="true" />
+      <created>1730523757023</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1730523757023</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
